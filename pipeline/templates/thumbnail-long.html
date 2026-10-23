@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- 롱폼 썸네일 = 0초 포스터 템플릿 — 대표 영상(챕터 1) 한 편의 포스터 (정본 docs/channel/08-longform.md §3.1·§8.1).
+     projects/<p>/cards/thumbnail.html로 복사해 TODO-를 모두 바꾼다(하나라도 남으면 검사가 실패하고 0초 포스터는 자리표시로 남는다). 1280×720 CSS.
+     검사·촬영: node pipeline/hf-bundle.mjs <p> thumb check → output/thumbnail.jpg(1920×1080).
+     🔴 이 파일이 0초 포스터의 원본이다 — hf-bundle build가 매번 compositions/bundle/poster.html로 옮겨 0초에 그대로 보이고,
+        장면이 천천히 다가온 뒤 마지막 0.5초에 그림(#t1)이 챕터 1의 첫 화면 크기로 돌아가며 챕터 1이 된다.
+     2026-10-08 사용자: 네 칸 조합 → "너무 복잡, 대표 영상의 포스터 형식으로, 여지라면 3개 더 있다 정도" → 글 판·그림 분할 → "포스터 느낌이 덜하다" →
+        글자를 주연 뒤로 보낸 깊이 판 → "타이포는 위로 나오는 게 좋겠다, video 스킬의 포스터처럼 기교 빼고".
+     그래서 숏츠 0초 포스터(video SKILL 「0.0초 포스터」·4-designer 「0초 포스터」)와 같은 문법이다 — 그림 전체 위에 글자 두 덩어리.
+
+     #t1     그림(화면 가득). data-frame = thumb frames <poster_s>가 저장한 챕터 1 첫 화면(cards/assets/frame-<초>.jpg),
+             data-box = 보일 상자 x0,y0,x1,y1(1920×1080 프레임 px, 16:9 — 검사가 비율을 본다). 주연을 크게, 글자가 앉을 빈 곳(하늘·벽)이 남게 잡는다.
+             빈 곳이 모자라면 상자를 프레임 밖(예: y0 음수)으로 넓히고 #t1 바탕색을 그쪽 가장자리 그림 색으로 맞춘다 — 하늘·벽이 이어진다.
+             글자를 주연·밝은 사물 위에 얹지 않는다(같은 밝기 위 글자는 읽히지 않는다).
+             챕터 1 첫 화면에 그 숏츠의 제목·후킹 글자가 있으면 상자 밖으로 밀어낸다 — 같은 말을 두 번 쓰지 않는다. 좌상단 로고·자막 띠도 뺀다.
+     #copy   글자 두 덩어리 — 그림의 빈 곳에 둔다(기본 왼쪽 위, 그림에 맞게 top/left/bottom을 바꾼다). 밝은 바탕이면 #copy에 class="ink"(Navy 글자).
+             받침·윤곽·반투명 카드·글자를 튀기는 움직임은 쓰지 않는다(4-designer 반려 목록).
+       #title  주제 제목 — Hahmlet 900 대문자. 후킹이 주제 이름을 품으면 이 한 덩어리가 볼 이유다(class="reason" — 가장 큰 글자).
+               이름만인 분류명이면 reason을 #hook으로 옮기고 그 줄을 가장 크게 쓴다(07 H03 — 검사가 경고한다).
+       #hook   후킹 줄 — Inter 900 대문자, 영상 속 말·숫자(새 주장 금지). 강조 한 단어만 <em>(라임 바탕) — 강조색은 한 곳.
+       #more   (여지가 있으면) 「+N MORE」 — N = 챕터 수 − 1(검사가 숫자를 본다). 필요 없으면 지운다.
+     오른쪽 아래 x>1120·y>640 = 재생시간 배지 자리 — 읽을 글자를 두지 않는다(검사가 막는다). -->
+<style>
+@font-face{font-family:Inter;src:url('../../../resources/fonts/InterVariable.woff2') format('woff2');font-weight:100 900}
+@font-face{font-family:Hahmlet;src:url('../../../resources/fonts/Hahmlet-Variable.ttf') format('truetype');font-weight:100 900}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1280px;height:720px;overflow:hidden;background:#111B35}
+.tile{position:absolute;left:0;top:0;width:1280px;height:720px;overflow:hidden}
+#t1{background:#111B35}   /* 상자가 프레임 밖으로 나가면 보이는 색 — 그 가장자리 그림 색으로 */
+.tile>.fr{position:absolute;display:block;max-width:none}
+#copy{position:absolute;left:56px;top:44px;z-index:2;display:flex;flex-direction:column;align-items:flex-start;gap:14px;color:#FFF5DF}
+#copy.ink{color:#111B35}
+#title{font:900 96px/.88 Hahmlet,serif;letter-spacing:-.032em;text-transform:uppercase}
+#hook{font:900 40px/1.05 Inter;letter-spacing:-.02em;text-transform:uppercase;white-space:nowrap}
+#hook em{font-style:normal;background:#C8F477;color:#111B35;padding:0 .18em;border-radius:6px}
+#more{font:900 24px/1 Inter;letter-spacing:.08em;color:#C8F477}
+#copy.ink #more{color:#111B35}
+</style>
+</head>
+<body>
+<div class="tile" id="t1" data-frame="assets/TODO-frame-chapter1-start.jpg" data-box="TODO-BOX"></div>
+<div id="copy">
+  <div id="title" class="reason">TODO-TITLE</div>
+  <div id="hook">TODO-HOOK <em>TODO-WORD</em></div>
+  <div id="more">+TODO-N MORE</div>
+</div>
+<script>/* data-box → 칸 안 프레임 배치(칸 크기에 대한 %). hf-bundle.mjs frameStyle과 같은 식 — 둘을 함께 고친다 */
+for (const t of document.querySelectorAll('.tile[data-frame][data-box]')) {
+  const [x0, y0, x1, y1] = t.dataset.box.split(',').map(Number), w = x1 - x0, h = y1 - y0;
+  if (!(w > 0 && h > 0)) continue;
+  const i = document.createElement('img');
+  i.className = 'fr'; i.alt = ''; i.src = t.dataset.frame;
+  Object.assign(i.style, {left: -x0 / w * 100 + '%', top: -y0 / h * 100 + '%', width: 1920 / w * 100 + '%', height: 1080 / h * 100 + '%'});
+  t.prepend(i);
+}
+</script>
+</body>
+</html>

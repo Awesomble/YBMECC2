@@ -1,0 +1,25 @@
+{
+  "title": "",
+  "language": "en",
+  "orientation": "landscape",
+  "fps": 60,
+  "bundle": {
+    "version": 1,
+    "promise": "",
+    "captions": "burn",
+    "chapters": [
+      {
+        "project": "",
+        "render": "",
+        "label": "",
+        "stop": "",
+        "icon": "",
+        "views": null,
+        "frames": {}
+      }
+    ],
+    "gap_s": 1.9,
+    "poster_s": 1.5
+  },
+  "cuts": []
+}

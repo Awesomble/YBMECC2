@@ -1,0 +1,28 @@
+{
+  "title": "",
+  "orientation": "portrait",
+  "fps": 60,
+  "timing": {
+    "version": 1,
+    "speed": 1.2
+  },
+  "sfx_policy": "include",
+  "asset_prompt_format": 2,
+  "voice": {
+    "engine": "typecast",
+    "voice_id": "",
+    "model": "ssfm-v30",
+    "voice": "한국어 목소리 선택 전 — 학부모 대상 차분한 성인 목소리(채널04 §4)",
+    "say_voice": "Yuna",
+    "rate": 200,
+    "lead": 0.12,
+    "speed": 1.0,
+    "seed": 1970,
+    "target_lufs": -14,
+    "assets": {},
+    "language": "kor"
+  },
+  "assets": [],
+  "cuts": [],
+  "language": "ko"
+}

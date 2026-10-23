@@ -1,0 +1,29 @@
+FreePD 곡 증빙 — Patience Party
+확인일: 2026-10-21 (curl로 웨이백 보관 페이지를 받아 원문에서 추출)
+보관 페이지: https://web.archive.org/web/20240720115205/https://www.freepd.com/romantic.php
+스냅샷: 20240720115205 · 분류: romantic · 저장본: freepd_romantic_20240720115205.html
+
+[페이지 <title> 원문]
+FreePD.com - Free Public Domain Music Creative Commons 0 Completely Royalty Free
+[페이지 하단 라이선스 줄 원문]
+FreePD.com - 100% Free Music - Free for Commercial Use, Free Of Royalties, Free Of Attribution, Creative Commons 0
+[곡 설명 칸 원문(태그 제거·엔티티 디코드만)]
+Written by Kevin MacLeod. Emotional, sad and soft track made with acoustic guitars and dreamy textures in the background. This music is available for commercial and non-commercial purposes.
+[페이지 표기 재생시간] 4:03
+
+[곡 행 HTML 원문]
+<tr> <td width="20%"><span class="midemoji">🙂😦🌽</span></td><td><b>Patience Party</b></td><td width="28%"><audio id="Balance70" controls preload="none" onplay="javascript:pauseAllExcept('Balance70')" class="LineDAudioTag"><source src="/web/20240720115205im_/https://www.freepd.com/music/Patience Party.mp3" type="audio/mpeg">Your browser does not support the audio element.  </audio></td><td><strong>Time:</strong>&nbsp;4:03</td>      <td><div style="text-align:center"><a class="downloadButton" href="/web/20240720115205/https://www.freepd.com/music/Patience Party.mp3">
+					Download
+				</a></div></td><td style="width: 20%; font-size: 9px">Written by <a href="https://web.archive.org/web/20240720115205/https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=QL4T5W3SDDBZA">Kevin MacLeod</a>. Emotional, sad and soft track made with acoustic guitars and dreamy textures in the background. This music is available for commercial and non-commercial purposes.</td>
+
+[음원 주소]
+페이지 다운로드 링크 href: /web/20240720115205/https://www.freepd.com/music/Patience Party.mp3
+원 주소: https://www.freepd.com/music/Patience%20Party.mp3
+요청한 웨이백 원본 모드 URL: https://web.archive.org/web/20240720115205id_/https://www.freepd.com/music/Patience%20Party.mp3
+실제 해결된 캡처 URL(가장 가까운 캡처로 리다이렉트): https://web.archive.org/web/20240211063623id_/https://freepd.com/music/Patience%20Party.mp3
+HTTP 200 · 받은 바이트 9726872 (HEAD Content-Length와 같음) · 저장 파일 바이트 9726872
+
+[받은 파일]
+resources/music/cc0/patience-party.mp3 — 원본 바이트 그대로(재인코딩·태그 수정 없음)
+ffprobe: 길이 243.069s · 코덱/샘플레이트/비트레이트 mp3,44100,320000
+SHA-256: 9fdd4b8b672e04c57c81263a005882ac73d4ae5e43efe0258ff51784fffd9ae9

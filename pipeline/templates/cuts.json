@@ -1,0 +1,170 @@
+{
+  "_comment": "새 영상의 골격. new.sh 가 title/orientation/fps/voice 를 채운다. 필드 의미와 절차는 /video 스킬.",
+  "title": "",
+  "orientation": "portrait",
+  "fps": 60,
+  "voice": {},
+  "_style_note": "style 은 영상 전체의 룩. 한 컷이라도 튀면 전체가 싸구려로 보인다. 주제의 정서를 따라 채워라 (docs/08-prompting.md '톤은 주제의 정서를 따라간다').",
+  "style": {
+    "ko": {
+      "medium": "실사 사진. 35mm, 자연광, 얕은 심도, 아주 미세한 필름 그레인. (예시 — 주제에 맞게 교체)",
+      "lighting": "(광질·방향·시간대. 예: 큰 창에서 들어오는 확산된 오전 햇빛)",
+      "color": "(구체적으로. 예: 밝은 화이트와 라이트 오크 베이스, 산뜻한 그린·블루 포인트)",
+      "mood": "(시청자가 느낄 정서 한 줄)",
+      "framing": "중요한 요소는 정중앙, 좌우에 넉넉한 여백. 하단 25%와 우측 12%는 비운다. 피사체 중심은 세로 53% 지점.",
+      "constraints": "워터마크 없음, 로고 없음, 실제 상표 없음. 지정한 화면 문자 외의 글자를 그리지 말 것.",
+      "output": "9:16 세로 (1024x1536 프리셋이면 중앙 배치 필수)"
+    },
+    "en": {
+      "medium": "Photorealistic. 35mm, natural light, shallow depth of field, very subtle film grain. (example — replace per topic)",
+      "lighting": "(quality, direction, time of day)",
+      "color": "(be specific)",
+      "mood": "(one line)",
+      "framing": "Key elements centered with generous side margins. Keep bottom 25% and right 12% empty. Subject center at 53% of height.",
+      "constraints": "No watermark, no logos, no real brands. No text beyond the specified on-screen characters.",
+      "output": "9:16 portrait (center composition if using the 1024x1536 preset)"
+    }
+  },
+  "aspect": {
+    "target": "9:16 (1080x1920)",
+    "note_ko": "gpt-image-2 의 세로 프리셋은 1024x1536(2:3)이라 9:16 이 아니다. 9:16 으로 자르면 좌우가 잘린다 — 그래서 모든 프롬프트에 '중앙 배치 + 좌우 여백'을 넣었다. API 로 커스텀 크기를 쓸 수 있으면 1088x1936(양변 16의 배수)을 권한다.",
+    "note_en": "gpt-image-2 portrait preset is 1024x1536 (2:3), not 9:16. Cropping to 9:16 removes the left/right edges."
+  },
+  "safezone": {
+    "canvas": "1080x1920",
+    "layout": {
+      "platform_ui_top": [
+        0,
+        220
+      ],
+      "headline": [
+        220,
+        600
+      ],
+      "content": [
+        600,
+        1450
+      ],
+      "subtitle_ui_bottom": [
+        1450,
+        1920
+      ]
+    },
+    "safe": {
+      "x": [
+        60,
+        960
+      ],
+      "y": [
+        600,
+        1450
+      ]
+    },
+    "subtitle": {
+      "bottom_px": 470,
+      "note": "자막 아래끝 y ≤ 1450"
+    },
+    "worst_case": {
+      "top": 220,
+      "bottom": 430,
+      "left": 60,
+      "right": 120
+    },
+    "note": "상세는 docs/09-safezone.md. 헤드라인 자리(220~600)를 확보하면 피사체는 세로 53% 지점으로 내려간다."
+  },
+  "video_style": {
+    "ko": {
+      "intensity": "아주 약하게(very subtle). 거의 정지에 가깝게 — 과한 움직임은 형태를 무너뜨린다.",
+      "audio": "조용한 실내 앰비언스만. 대사 없음, 음악 없음, 내레이션 없음.",
+      "length": "5초. 한 샷에 한 동작만.",
+      "negative": "morphing, warping, melting background, object deformation, jittery camera, sudden zoom, motion blur, flickering, text appearing, watermark, logo, people, hands, extra objects, background shifting, unnatural physics"
+    },
+    "en": {
+      "intensity": "Very subtle, nearly still — heavy motion breaks the shapes.",
+      "audio": "Quiet indoor ambience only. No dialogue, no music, no narration.",
+      "length": "5 seconds. One action per shot.",
+      "negative": "morphing, warping, melting background, object deformation, jittery camera, sudden zoom, motion blur, flickering, text appearing, watermark, logo, people, hands, extra objects, background shifting, unnatural physics"
+    }
+  },
+  "_cut_note": "실사 레거시 템플릿. dur는 실제 발화로 측정한다. overlay.text는 영문·숫자만(실사 경로 한정). 대본은 docs/12-brand.md의 시작·끝 대사와 공용 video ②를 따른다: 옛 라디오 콘셉트 + 첫마디부터 강한 훅. 놀람·과장·유머는 어휘·비유·호흡으로 살리고 정확한 뜻과 조건은 본문에서 설명할 수 있다. 발화 대사는 -요 종결·질문형으로 쓰지 않는다. 채널명 첫말과 모든 문장의 습니다체를 강제하지 않는다. 자연스러운 유머·꽁트 마무리를 우선하되 없으면 본문 결론에서 끝내도 된다. 아래 괄호 자리표시자는 실제 대사로 바꾼다.",
+  "cuts": [
+    {
+      "id": "cut-01",
+      "dur": 2.4,
+      "say": "(첫마디부터 소재의 놀라움·호기심을 자극하는 강한 훅. 옛 라디오 어조에 구어·과장 포인트를 살리고 본문에서 정확한 뜻과 조건 설명)",
+      "text": "(확정된 첫 훅 대사의 자막)",
+      "headline": "(상단 헤드라인 — 조립 때 얹는다. 5~8단어)",
+      "big": "",
+      "unit": "",
+      "concept": "(이 컷이 하는 일 한 줄 — 선택)",
+      "image": {
+        "ko": {
+          "scene": "(장소·시간대)",
+          "subject": "(피사체와 상태)",
+          "detail": "(질감·소품. 문자 자리가 있으면 위치를 명시)",
+          "framing": "(구도·시점·배치)"
+        },
+        "en": {
+          "scene": "",
+          "subject": "",
+          "detail": "",
+          "framing": ""
+        }
+      },
+      "overlay": [
+        {
+          "text": "$12/yr",
+          "where": "(위치)",
+          "style": "(크기·색)",
+          "where_en": "",
+          "style_en": ""
+        }
+      ],
+      "video": {
+        "ko": {
+          "camera": "(움직임·속도·끝나는 지점)",
+          "action": "(무엇이 움직이나. 안 움직이는 것도 명시)",
+          "light": "(시간에 따른 빛 변화)"
+        },
+        "en": {
+          "camera": "",
+          "action": "",
+          "light": ""
+        }
+      },
+      "note": "(제작 주의 — 선택. 예: 이 컷은 실제 화면 캡처가 낫다)"
+    },
+    {
+      "id": "cut-02",
+      "dur": 2.4,
+      "say": "(마지막 컷 — 첫 컷과 같은 구도로 루프. 의미만 반전)",
+      "text": "여기에 자막을",
+      "image": {
+        "ko": {
+          "scene": "cut-01 과 같은 장소, 같은 각도",
+          "subject": "",
+          "detail": "",
+          "framing": ""
+        },
+        "en": {
+          "scene": "",
+          "subject": "",
+          "detail": "",
+          "framing": ""
+        }
+      },
+      "video": {
+        "ko": {
+          "camera": "",
+          "action": "",
+          "light": ""
+        },
+        "en": {
+          "camera": "",
+          "action": "",
+          "light": ""
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "abm-motion",
+  "private": true,
+  "description": "ABM 모션 엔진 (Remotion). 직접 부르지 말고 pipeline/render.sh · pipeline/studio.sh 를 쓴다 (public/ 스테이징 + src/project.ts 생성).",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts Main --codec=h264 --crf=18 --concurrency=10"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.520",
+    "@remotion/fonts": "4.0.520",
+    "@remotion/media": "4.0.520",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "remotion": "4.0.520"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.0",
+    "typescript": "5.6.3"
+  }
+}

@@ -1,0 +1,44 @@
+<!doctype html>
+<!-- YBM ECC 대치점 락업 원본 (2026-10-20). 공식 마크(ybmecc-mark.svg — ybmecc.com 헤더 원본, 변형·재채색 금지)는 그대로 두고
+     「대치점」 지점 표기만 옆/아래에 조판한다(마크 아래 띠에 YBM이 이미 있어 YBM ECC를 다시 쓰지 않는다 — 휴대폰에서 6pt로 안 읽혔다). 렌더: 각 #id 요소를 Chrome 헤드리스로 배경 없이 스크린샷 — 방법은 SOURCES.md -->
+<html lang="ko"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Inter;src:url('../fonts/InterVariable.woff2') format('woff2');font-weight:100 900}
+@font-face{font-family:Pretendard;src:url('../fonts/Pretendard-Black.otf') format('opentype');font-weight:900}
+@font-face{font-family:Pretendard;src:url('../fonts/Pretendard-ExtraBold.otf') format('opentype');font-weight:800}
+@font-face{font-family:Pretendard;src:url('../fonts/Pretendard-Bold.otf') format('opentype');font-weight:700}
+/* 판 모서리 반지름은 logo-check 컷아웃 기준(투명 3% 이상)을 넘기는 값 — 탭·가로는 캡슐(높이의 절반), 스택 40 */
+/* 마크 색 그대로: 버건디 #A51D4D · 오렌지 #F69321 */
+:root{--bg:#A51D4D;--or:#F69321;--iv:#FFFFFF;--ink:#2B1420}
+html,body{margin:0;background:transparent}
+body{padding:40px;display:flex;flex-direction:column;gap:60px;align-items:flex-start;font-family:Pretendard,Inter,sans-serif}
+.mark{display:block;height:100%;width:auto}
+/* A — 가로: 흰 판 안에 마크 | 오렌지 세로줄 | 대치점 */
+#h{display:inline-flex;align-items:center;gap:18px;background:var(--iv);border-radius:54px;padding:14px 38px 14px 34px}
+#h .m{height:80px}
+#h .rule{width:3px;height:64px;background:var(--or);border-radius:2px}
+#h .t{display:flex;flex-direction:column;justify-content:center;color:var(--bg)}
+#h .t b{font-weight:900;font-size:54px;line-height:.96;letter-spacing:-.02em}
+/* A' — 가로 투명(밝은 바탕·카드·엔딩용, 판 없음) */
+#hc{display:inline-flex;align-items:center;gap:18px;padding:6px 4px}
+#hc .m{height:80px}
+#hc .rule{width:3px;height:64px;background:var(--or);border-radius:2px}
+#hc .t{display:flex;flex-direction:column;justify-content:center;color:var(--bg)}
+#hc .t b{font-weight:900;font-size:54px;line-height:.96;letter-spacing:-.02em}
+/* B — 세로 스택: 흰 판 위 마크, 아래 버건디 띠에 흰 「대치점」 */
+#s{display:inline-flex;flex-direction:column;align-items:center;background:var(--iv);border-radius:40px;padding:20px 20px 18px;gap:10px}
+#s .m{height:92px}
+#s .tab{background:var(--bg);color:#fff;border-radius:12px;padding:8px 16px 9px;font-weight:900;font-size:36px;line-height:1;letter-spacing:.04em}
+/* C — 탭(기본 로고): 흰 판(마크) + 버건디 판(대치점) 한 몸, 이음매에 오렌지 줄 */
+#t{display:inline-flex;align-items:stretch;border-radius:55px;overflow:hidden}
+#t .l{background:var(--iv);padding:14px 18px 14px 32px;display:flex;align-items:center}
+#t .l .m{height:82px}
+#t .r{background:var(--bg);color:#fff;padding:0 38px 0 24px;display:flex;flex-direction:column;justify-content:center;position:relative}
+#t .r::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--or)}
+#t .r b{font-weight:900;font-size:54px;line-height:.96;letter-spacing:-.02em}
+</style></head><body>
+<div id="h"><img class="m mark" src="ybmecc-mark.svg" alt="YBM ECC"><span class="rule"></span><span class="t"><b>대치점</b></span></div>
+<div id="hc"><img class="m mark" src="ybmecc-mark.svg" alt="YBM ECC"><span class="rule"></span><span class="t"><b>대치점</b></span></div>
+<div id="s"><img class="m mark" src="ybmecc-mark.svg" alt="YBM ECC"><span class="tab">대치점</span></div>
+<div id="t"><span class="l"><img class="m mark" src="ybmecc-mark.svg" alt="YBM ECC"></span><span class="r"><b>대치점</b></span></div>
+</body></html>

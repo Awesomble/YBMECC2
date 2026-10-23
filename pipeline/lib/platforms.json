@@ -1,0 +1,842 @@
+{
+  "_comment": "플랫폼 업로드 문안 하드 규격 — 정본. /review 스킬과 pipeline/publish-check.mjs 가 같은 이 파일을 본다 (숫자를 두 곳에 적으면 갈라진다 — docs/02-pitfalls.md §15).",
+  "_grades": {
+    "A": "플랫폼 공식 문서·뉴스룸",
+    "B": "신뢰할 만한 업계 매체·대규모 데이터 스터디",
+    "C": "3rd party 합의 또는 방법론 공개된 개인 분석 — 상관이지 인과가 아니다",
+    "D": "근거 없는 통설 — 규격으로 쓰지 마라",
+    "추론": "A 등급 사실에서 역산한 실무 기준 — 공식 수치가 아니다"
+  },
+  "_rule": "A 가 아닌 값으로 반려하지 마라. 접힘(visible) 수치는 전 플랫폼이 비공개라 전부 추정이므로 경고까지만 낸다. 플랫폼이 규격을 바꾸므로 checked 날짜가 오래됐으면 다시 확인하고 이 파일을 고친다.",
+  "checked": "2026-09-07",
+  "_korea_priority": {
+    "note": "🔵 ABMEN: 아래는 **한국 시청자** 이용률이며 ABM(국내 채널)의 공수 배분 근거다. ABMEN 의 시청자는 영어권이라 이 순위를 그대로 쓰지 않는다 — 특히 틱톡은 영어권에서 주력 면이므로 카피를 재활용하지 말고 새로 쓴다. 영어권 플랫폼별 점유 자료는 이 저장소에서 확인하지 않았다.",
+    "mau_2025_12": {
+      "instagram": "2,758만",
+      "tiktok": "928만(+라이트 612만)",
+      "source": "https://www.wiseapp.co.kr/insight/detail/997",
+      "grade": "B"
+    },
+    "shortform_use_20s": {
+      "youtube_shorts": "84%",
+      "reels": "74%",
+      "tiktok": "11%",
+      "source": "메조미디어 2026 타깃리포트 (n=215)",
+      "grade": "B"
+    },
+    "daily_view": {
+      "value": "82.5%",
+      "note": "그중 60.5%는 하루 3회 이상",
+      "source": "https://blog.nasmedia.co.kr/entry/2026NPRusersurveyinsight-1shortform (KT 나스미디어 2026 NPR, n=2,000)",
+      "grade": "B"
+    },
+    "product_search_in_shortform": {
+      "value": "62.6%",
+      "note": "숏폼에서 제품 정보를 찾는다 — 정보 채널은 검색어를 제목에 정확히 박는 것이 유입이 된다",
+      "grade": "B",
+      "source": "https://blog.nasmedia.co.kr/entry/2026NPRusersurveyinsight-1shortform (KT 나스미디어 2026 NPR, n=2,000)"
+    },
+    "age_role": {
+      "note": "연령별로 숏폼의 역할이 다르다 — 정책·마감 정보는 40대 이상 비중이 크고, 그들에게 숏폼은 '탐색의 출발점'이다. 그래서 캡션이 다음 행동(검색어)을 쥐여 줘야 한다.",
+      "10_20s": "공유·확산",
+      "30s": "구매 전환",
+      "40s_plus": "탐색의 출발점",
+      "source": "KT 나스미디어 2026 NPR",
+      "grade": "B"
+    },
+    "mau_2026": {
+      "kakaotalk": "4,770만",
+      "instagram": "2,808만",
+      "band": "1,559만",
+      "tiktok": "943만",
+      "navercafe": "904만",
+      "x": "795만",
+      "threads": "543만(2025-07)",
+      "note": "2026년 1~4월 월평균. **X 가 스레드보다 크고 틱톡에 근접한다** — 공수 배분에서 X 를 스레드보다 위에 둔다.",
+      "source": "https://www.wiseapp.co.kr/insight/detail/997",
+      "grade": "B"
+    }
+  },
+  "crosspost": {
+    "_comment": "인스타 한 번 올리기로 페이스북·스레드까지 간다 — 인스타 캡션이 그대로 스레드 글이 되므로 스레드 규격 안에서 쓴다. 스레드 절은 따로 쓰지 않는다",
+    "user_note": "사용자 2026-10-20 「인스타에서 1번 올리면 페이스북과 스레드까지 한번에 올릴 수 있어서 앞으로 그렇게 올릴 거야 — 스레드는 별도로 생성하지 않아도 돼, 길이·줄바꿈·공백까지 철저히 검증」",
+    "since": "2026-10-20",
+    "checked": "2026-10-20",
+    "from": "instagram",
+    "to": [
+      "facebook",
+      "threads"
+    ],
+    "threads_max": 500,
+    "count": "이모지(그림 문자·국기·키캡 묶음)는 UTF-8 바이트 수, 그 밖의 글자는 하나에 1 — 공백·줄바꿈·해시태그 포함",
+    "max_grade": "A",
+    "max_source": "https://developers.facebook.com/documentation/threads/posts — \"Text posts are limited to 500 characters.\" · \"emojis are counted as the number of UTF-8 bytes\"",
+    "topic_tag": {
+      "min": 1,
+      "max": 50,
+      "grade": "A",
+      "source": "https://developers.facebook.com/documentation/threads/posts — \"Only one topic tag is allowed per post\" (첫 유효 태그) · 1~50자 · 공백·탭·줄바꿈과 . & @ ! ? , ; : 앞에서 끝난다 · #1 처럼 숫자만은 태그가 아니다"
+    },
+    "unverified": "앱 교차 게시가 500자 넘는 캡션을 자르는지·막는지, 두 번째 이후 해시태그를 「Show hashtags」 뒤로 숨기는지(Social Media Today 보도, 보도 시점 미확인 — C)는 공식 문서가 없다. 첫 교차 게시 뒤 스레드 글을 열어 확인하고 이 checked 를 고친다"
+  },
+  "whitespace": {
+    "_comment": "복붙 블록의 공백·줄바꿈 — publish-check 가 블록마다 줄 번호로 잰다. since 이후 「작성」은 실패, 그 전은 경고(소급하지 않는다)",
+    "since": "2026-10-20",
+    "rules": [
+      "줄 끝 공백·탭 없음",
+      "줄 앞 공백 없음",
+      "탭 없음",
+      "단어 사이 공백은 하나",
+      "빈 줄은 한 번에 하나까지",
+      "블록 첫 줄·끝 줄은 빈 줄이 아니다",
+      "CR(\\r) 없음",
+      "특수·보이지 않는 공백(NBSP·U+2000~200C·U+2028/2029·U+202F·U+205F·U+2060·U+3000·U+FEFF·U+2800) 없음 — 이모지 안의 U+200D·U+FE0F 는 그대로"
+    ],
+    "grade": "C — 인스타가 줄 끝 공백 뒤 줄바꿈을 지우고 연속 빈 줄을 하나로 합친다는 것은 도구 업체들의 정리이고 공식 문서는 없다. 공백도 스레드 500자에 들어가므로 어느 쪽이든 뺀다"
+  },
+  "platforms": {
+    "youtube": {
+      "label": "유튜브 쇼츠",
+      "priority": 1,
+      "checked": "2026-09-25",
+      "fields": {
+        "description": {
+          "heading": "설명",
+          "required": true,
+          "max": 5000,
+          "max_grade": "A",
+          "max_source": "https://support.google.com/youtube/answer/12948449 — maximum of 5000 characters",
+          "first_line_is_title": true,
+          "first_line_note": "🔴 **첫 줄이 곧 제목이다** (2026-09-16 사용자 지시 — 따로 만들지 않는다). 🔴 **제목 끝에 핵심 해시태그를 붙인다** (2026-09-25 사용자 지시) — 훅·핵심어는 앞, 태그는 끝, 합쳐서 100자 안. 영문 한 줄의 표시 자수는 측정하지 않았으므로 기준치를 지어내지 말고 핵심을 앞에 둔다",
+          "title": {
+            "max": 100,
+            "max_grade": "A",
+            "max_source": "https://support.google.com/youtube/answer/57404 — 'Video titles have a character limit of 100 characters' (해시태그 포함, 2026-09-25 확인)",
+            "hashtags": {
+              "min": 1,
+              "max": 3,
+              "grade": "사용자 지시 2026-09-25 · 상한 3은 추론",
+              "note": "보통 2개. 제목의 해시태그도 결과 페이지 링크가 된다 (A — answer/6390658 'Hashtags in the title and description will link to a results page'). 태그가 많을수록 훅이 밀리고 과다 태깅 위험이 커진다. 제목 태그가 설명 태그의 '제목 옆 표시'에 주는 영향은 공식 문서에 없다(2026-09-25 두 번 확인) — 추정해 쓰지 않는다"
+            }
+          },
+          "body_inline_hashtags": {
+            "min": 1,
+            "grade": "사용자 지시 2026-09-25",
+            "note": "설명 본문 **문장 안에** 해시태그 1~2개를 자연스럽게 넣는다. 🔴 일반 키워드 나열·반복 문장은 정책 위반이다 (A — answer/6390658 Non-hashtags: 'adding ordinary descriptive tags or repetitive sentences in the description is (still) prohibited')"
+          }
+        },
+        "hashtags": {
+          "heading": "해시태그",
+          "required": true
+        },
+        "comment": {
+          "heading": "댓글",
+          "required": true,
+          "comment": true,
+          "required_since": "2026-09-29",
+          "required_since_note": "2026-09-29 사용자 지시로 추가 — 이 날짜 이전 「작성」 표기의 publish.md 는 소급하지 않는다(없으면 경고만)",
+          "recommend_max": 160,
+          "recommend_grade": "사용자 지시 2026-09-29 — 한두 줄의 개성 댓글",
+          "emoji_max": 2,
+          "emoji_note": "이모지는 선택 — 0~2개 권장. 넘으면 경고",
+          "no_hashtags": true,
+          "no_hashtags_note": "검색·분류는 본문이 맡는다 — 인스타 공식: 해시태그는 캡션에(댓글 아님)",
+          "max": 10000,
+          "max_grade": "C",
+          "max_source": "3rd party 다수 합의(댓글·답글 10,000자) — YouTube Data API comments 문서에 수치 없음 https://developers.google.com/youtube/v3/docs/comments",
+          "where": "채널 계정 댓글 → 고정(pin). 쇼츠는 「관련 동영상」 연결을 함께 건다",
+          "links": false,
+          "links_longform": true,
+          "link_source": "https://support.google.com/youtube/answer/13748639 — Shorts 설명·댓글 URL 클릭 불가(고정 댓글 포함, 2023-08-31~). 롱폼 설명·댓글 URL 은 클릭 가능(채널 고급 기능 필요). 쇼츠에서 클릭되는 것: 관련 동영상 링크·채널 프로필 링크·@멘션·해시태그 (A, 2026-09-29 확인)"
+        }
+      },
+      "hashtags": {
+        "min": 3,
+        "max": 5,
+        "hard_max": 60,
+        "hard_max_grade": "A",
+        "hard_max_source": "https://support.google.com/youtube/answer/6390658 — 60개가 넘으면 각 해시태그를 무시합니다",
+        "display": 3,
+        "display_grade": "A",
+        "display_note": "설명의 해시태그 중 참여도가 높은 최대 3개가 제목 옆에 표시된다 (A — 'Out of all the hashtags you add to the video's description, up to three ... will appear by your video title').",
+        "scope": "min·max 는 **설명(제목 줄 제외)의 고유 태그 수** — 본문 문장 속 태그 + 마지막 줄. 설명 안에서 같은 태그를 두 번 쓰지 않는다(대소문자 무시). 제목 태그는 설명 집합에 다시 넣어도 된다(추론). 제목·설명 합계는 hard_max 안",
+        "range_grade": "추론",
+        "range_note": "표시 3개(A)에서 역산. 한국어 쇼츠 452편 상관분석 ρ=-0.270(C) 은 '많이 달아도 안 오른다'의 근거일 뿐 '줄이면 오른다'가 아니다.",
+        "myth": "'15개 초과 시 무효'는 공식 문서에 없다 (국문·영문 모두 60개만) — D등급 낡은 통설.",
+        "shorts_tag": "#Shorts 는 분류에 불필요하다 (A — 판정 기준은 화면비+길이 3분 이하뿐). 공식 블로그가 인기 태그 예시로 언급하나 효과 주장은 아니다(A). 추천 가중치 여부는 근거 없음(D). 표시 슬롯 3개를 주제어에 쓰는 편이 낫다(추론)."
+      },
+      "rules": [
+        "중요한 단어를 제목 맨 앞에 — 공식이 '제목 일부만 보인다'고 직접 인정한다 (A)",
+        "채널명·회차 번호는 제목 끝으로. 앞에 붙이지 마라 (A)",
+        "전부 대문자·이모지는 제한적으로 (A)",
+        "내용과 다른 제목은 이탈을 만들고 그 결과 노출이 줄어든다 (A)",
+        "핵심어 1~2개를 제목과 설명에 함께 (A)",
+        "사람들이 실제로 치는 말을 원형 그대로 — `node pipeline/keyword.mjs` 의 유튜브·구글 제안에서 고른다 (예: 'tipping in korea' · 'korea tax refund'). 말을 늘려 쓰면 검색어와 어긋난다 (추론)",
+        "🔴 제목 끝에 핵심 해시태그 1~3개(보통 2) — 2026-09-25 사용자 지시. 훅·핵심어는 앞, 태그는 끝, 합쳐서 100자 (A)",
+        "⚠️ 쇼츠는 설명·댓글 링크가 클릭되지 않는다 (A) — 유입은 채널 프로필 링크(최대 14개)로",
+        "설명 구조: 첫 1~2줄 요약+핵심어 → 본문(문장 속 해시태그 1~2개) → 마지막 줄 해시태그. 🔴 출처·확인일·출처 링크 금지(2026-10-02 사용자 지시)",
+        "해시태그 정책 (A — answer/6390658): 공백 없이(#TwoWords) · 영상과 직접 관련된 것만(무관·오해 태그는 삭제 사유) · 과다 태깅은 검색·업로드에서 제거될 수 있다 · 설명에 일반 키워드 나열·반복 문장 금지",
+        "#fyp #viral 같은 광범위 태그는 주제 신호를 0으로 만든다 (C)"
+      ],
+      "notes": [
+        "쇼츠 자동 판정: 세로·정사각 + 3분 이하 (A, 2024-10-15 업로드분부터). 최대 1080p (A)",
+        "⚠️ 1분 초과 쇼츠에 저작권 클레임이 걸리면 전 세계 차단 + 수익화 불가 (A) — 30~60초 유지가 안전",
+        "2026-06-25 클리어 스크린 모드: 재생 중 제목·해시태그가 화면에서 사라질 수 있다 (A) — 화면에 구운 자막의 중요도가 올라간다",
+        "쇼츠 랭킹은 시청 지표(선택 비율·평균 시청 시간·평균 시청률) 중심 (A). 카피의 역할은 검색 유입 키워드와 오해 없는 제목까지다"
+      ]
+    },
+    "instagram": {
+      "label": "인스타그램 릴스",
+      "priority": 2,
+      "checked": "2026-09-07",
+      "fields": {
+        "caption": {
+          "heading": "캡션",
+          "required": true,
+          "max": 2200,
+          "max_grade": "C",
+          "max_source": "3rd party 다수 합의. 공식 문서 확인 실패 (help.instagram.com 이 봇에 본문을 안 준다)",
+          "visible": 55,
+          "visible_grade": "C",
+          "visible_note": "릴스 탭 접힘 55~60자(C, 단일 블로그 계열이라 약함) · 피드 125자(C). 둘 중 짧은 쪽을 안전선으로 잡았다. 실기기 확인 권장.",
+          "crosspost": true,
+          "crosspost_note": "2026-10-20~ 이 캡션이 페이스북·스레드에 그대로 간다 — crosspost 규격(스레드 500자·토픽 태그)으로도 잰다"
+        },
+        "hashtags": {
+          "heading": "해시태그",
+          "required": true
+        },
+        "comment": {
+          "heading": "댓글",
+          "required": true,
+          "comment": true,
+          "required_since": "2026-09-29",
+          "required_since_note": "2026-09-29 사용자 지시로 추가 — 이 날짜 이전 「작성」 표기의 publish.md 는 소급하지 않는다(없으면 경고만)",
+          "recommend_max": 160,
+          "recommend_grade": "사용자 지시 2026-09-29 — 한두 줄의 개성 댓글",
+          "emoji_max": 2,
+          "emoji_note": "이모지는 선택 — 0~2개 권장. 넘으면 경고",
+          "no_hashtags": true,
+          "no_hashtags_note": "검색·분류는 본문이 맡는다 — 인스타 공식: 해시태그는 캡션에(댓글 아님)",
+          "max": 2200,
+          "max_grade": "C",
+          "max_source": "3rd party 다수 합의 — 공식 수치 미확인",
+          "where": "첫 댓글 → 고정",
+          "links": false
+        }
+      },
+      "hashtags": {
+        "min": 3,
+        "max": 5,
+        "hard_max": 5,
+        "hard_max_grade": "A",
+        "hard_max_source": "2025-12-18 인스타 공식 @creators 발표 — https://www.socialmediatoday.com/news/instagram-implements-new-limits-on-hashtag-use/808309/",
+        "official_quote": "using fewer (up to 5) more targeted hashtags, rather than many generic ones, can improve both your content's performance",
+        "myth": "'30개 꽉 채워라'는 폐기 — 상한이 5개라 물리적으로 불가능(A). '5개 초과 시 배포 억제(shadowban)'도 근거 없음(D).",
+        "note": "해시태그는 도달 레버가 아니라 분류표다. 도달은 캡션 텍스트가 만든다."
+      },
+      "rules": [
+        "**첫 55자에 승부.** 릴스 탭 접힘이 피드보다 훨씬 빠르다 — 숫자·대상어를 앞에 (C, 실기기 확인 권장)",
+        "⚠️ **키워드와 해시태그는 캡션에 넣는다. 첫 댓글이 아니다** — 인스타 공식 문구 'put keywords and hashtags in the caption, not the comments' (A). '첫 댓글에 숨겨라'는 공식 지침과 정반대인 통념(D)",
+        "검색 최우선 신호는 **검색창 텍스트 매칭**이고 캡션이 색인 대상이다 (A) — 한국어 검색어를 캡션 자연문에 넣는 게 해시태그보다 크다",
+        "2025-07-10부터 프로 계정 공개 콘텐츠가 구글에 기본 색인된다 (B) — 캡션이 구글 검색 자산이다",
+        "저장을 유도한다. '나중에 확인할 정보' 가치를 캡션이 만든다"
+      ],
+      "notes": [
+        "⚠️ **2026-04-30 원본성 단속** — 남의 콘텐츠를 주로 재게시하는 계정은 추천(탐색·릴스탭·검색)에서 제외. 30일 롤링 재게시 10건 이상이 기준 (B). 자체 제작 모션그래픽은 안전하지만 **기사 캡처·뉴스 화면을 그대로 쓰는 컷은 위험**하다",
+        "해시태그 사용 게시물이 평균 대비 조회 -31.7% (Metricool 2026, IG 게시물 2,436만) — **상관이지 인과가 아니다**(계정 규모 미통제). '해시태그가 도달을 늘린다'를 부정하는 근거로만 써라",
+        "릴스 평균 시청시간 8.5초 (Metricool 2026, B)"
+      ]
+    },
+    "tiktok": {
+      "label": "틱톡",
+      "priority": 3,
+      "checked": "2026-09-07",
+      "fields": {
+        "caption": {
+          "heading": "캡션",
+          "required": true,
+          "max": 2200,
+          "max_grade": "C",
+          "max_source": "상충: 4,000자 주장이 다수이나 일부 카운터는 2,200. 공식 접근 실패 — 안전하게 낮은 쪽을 상한으로 뒀다",
+          "visible": 100,
+          "visible_grade": "C",
+          "visible_note": "피드 접힘 80~150자, 기기·레이아웃별 편차 (C)"
+        },
+        "hashtags": {
+          "heading": "해시태그",
+          "required": true
+        },
+        "comment": {
+          "heading": "댓글",
+          "required": true,
+          "comment": true,
+          "required_since": "2026-09-29",
+          "required_since_note": "2026-09-29 사용자 지시로 추가 — 이 날짜 이전 「작성」 표기의 publish.md 는 소급하지 않는다(없으면 경고만)",
+          "recommend_max": 150,
+          "recommend_grade": "사용자 지시 2026-09-29 — 한두 줄의 개성 댓글",
+          "emoji_max": 2,
+          "emoji_note": "이모지는 선택 — 0~2개 권장. 넘으면 경고",
+          "no_hashtags": true,
+          "no_hashtags_note": "검색·분류는 본문이 맡는다 — 인스타 공식: 해시태그는 캡션에(댓글 아님)",
+          "max": 150,
+          "max_grade": "C",
+          "max_source": "3rd party 다수 합의 — 댓글·답글 150자(https://napoleoncat.com/dictionary/tiktok-character-count/ 등, 2026-09-29 확인). 틱톡 공식 문서 없음",
+          "where": "첫 댓글 → 고정",
+          "links": false
+        }
+      },
+      "hashtags": {
+        "min": 2,
+        "max": 3,
+        "hard_max": 5,
+        "hard_max_grade": "B",
+        "hard_max_source": "인앱 경고 'Maximum 5 hashtags' — https://www.socialmediatoday.com/news/tiktok-implements-five-hashtag-limit-per-post/757857/ (2025-08). ⚠️ 틱톡 공식 발표는 없다",
+        "note": "넓은 태그 1 + 커뮤니티 태그 2~3 + 주제 특정 1 배분은 업계 관행이지 공식 수치가 아니다 (C)",
+        "source": "https://newsroom.tiktok.com/en-us/5-tips-for-tiktok-creators — 1차. 'More hashtags won't guarantee a broader reach'"
+      },
+      "rules": [
+        "캡션 첫 100자 안에 핵심 키워드 (C)",
+        "캡션·사운드·해시태그가 FYP 랭킹 신호다 (A — TikTok Newsroom)",
+        "팔로워 수는 직접 신호가 아니다 (A) — 신규 채널도 같은 출발선",
+        "캡션·음성·화면 텍스트가 모두 검색 대상이다 — 자막을 굽는 우리 방식이 유리하다",
+        "Creator Search Insights(공식 도구)로 검색은 많은데 영상이 적은 주제를 찾는다 (A)"
+      ],
+      "notes": [
+        "⚠️ 국내 20대 이용률 11%는 **한국 기준**이다 (B). 🔵 ABMEN 은 영어권 대상이므로 이 근거로 틱톡을 후순위에 두지 않고 카피를 새로 쓴다"
+      ]
+    },
+    "threads": {
+      "label": "스레드",
+      "priority": 5,
+      "checked": "2026-09-07",
+      "fields": {
+        "body": {
+          "heading": "본문",
+          "required": true,
+          "max": 500,
+          "max_grade": "A",
+          "max_source": "https://developers.facebook.com/docs/threads/posts — 500자. 공백·문장부호·이모지 포함, URL 도 전체 길이가 그대로 카운트된다 (X 처럼 단축하지 않는다)",
+          "visible": 100,
+          "visible_grade": "추론",
+          "visible_note": "모바일에서 긴 글이 잘리는 건 UI 사실이나 정확한 지점은 공식·실측 자료가 없다. 첫 줄에 결론을 두는 건 합리적 추론까지다."
+        },
+        "hashtags": {
+          "heading": "해시태그",
+          "required": true
+        },
+        "comment": {
+          "heading": "댓글",
+          "required": true,
+          "comment": true,
+          "required_since": "2026-09-29",
+          "required_since_note": "2026-09-29 사용자 지시로 추가 — 이 날짜 이전 「작성」 표기의 publish.md 는 소급하지 않는다(없으면 경고만)",
+          "recommend_max": 300,
+          "recommend_grade": "사용자 지시 2026-09-29 — 한두 줄의 개성 댓글",
+          "emoji_max": 2,
+          "emoji_note": "이모지는 선택 — 0~2개 권장. 넘으면 경고",
+          "no_hashtags": true,
+          "no_hashtags_note": "검색·분류는 본문이 맡는다 — 인스타 공식: 해시태그는 캡션에(댓글 아님)",
+          "max": 500,
+          "max_grade": "A",
+          "max_source": "답글도 게시물 — https://developers.facebook.com/docs/threads/posts 500자",
+          "where": "자기 글에 답글",
+          "links": true
+        }
+      },
+      "hashtags": {
+        "min": 1,
+        "max": 1,
+        "hard_max": 1,
+        "hard_max_grade": "A",
+        "hard_max_source": "Mosseri 원문 'only one tag per post' https://www.threads.com/@mosseri/post/C0j7sSWvXTF · 인스타 헬프센터 https://help.instagram.com/1356090605000312",
+        "myth": "'스레드도 3~5개 권장'은 X·인스타 관행을 옮긴 통설(D). 두 번째 이후 #문자열은 클릭 가능한 태그로 작동하지 않는다."
+      },
+      "rules": [
+        "**스레드는 좋아요가 아니라 답글을 센다** — 피드 예측 신호가 '답글을 열어볼 확률'이다 (A, Meta 투명성 센터)",
+        "**열린 질문으로 마무리한다** — 대화 유도형이 일방 공지형보다 성과가 좋다 (B, Buffer)",
+        "올린 뒤 **자기 게시물 댓글에 직접 답하면 참여도 +42%** (B, Buffer 12.8만 건 — 전 플랫폼 중 최대 상승폭). 사용자에게 이걸 알려라",
+        "**영상을 붙여라** — 포맷별 참여율 영상 5.55% > 이미지 4.55% > 텍스트 2.79% > 링크 2.34% (B, Buffer 4,500만+)",
+        "링크는 본문에 넣어도 된다 — 다운랭크는 **공식 부인**(A, Mosseri 2024-11 'We don't downrank links'). '링크는 첫 댓글에'는 X 문화에서 온 통설(D)",
+        "다만 링크 글 참여율이 최하위인 건 사실이다 — **알고리즘 벌점이 아니라 사용자 행동**이다. 본문의 주체는 링크가 아니라 대화를 부르는 문장이어야 한다",
+        "영상 홍보문이 아니라 **그 정보 자체를 글로** 쓴다. 500자 안에 사실이 다 들어가야 한다"
+      ],
+      "notes": [
+        "국내 MAU 543만 (2025-07, 전년 304만 → +79%). 25~34세 40.9% · 35~44세 29.9% · 남성 55.2% (B) — **인스타보다 연령대가 높고 남성 비중이 크다.** 30~40대 생활비·정책 관심층과 겹친다",
+        "텍스트 첨부(long-form) 10,000자를 쓸 수 있다 (A, 2025-09 출시) — 500자를 넘는 상세는 여기로",
+        "⚠️ '훅 80자', '완주율 70%', '역발상 훅 +65%' 류 스레드 최적화 수치는 **전부 출처 없는 AI 생성 SEO 블로그**다 (D). 규격으로 쓰지 마라"
+      ],
+      "crossposted_since": "2026-10-20",
+      "crossposted_note": "인스타 교차 게시로 올린다 — 이 날짜 이후 「작성」 문안은 ## threads 절을 쓰지 않는다(아래 규격은 그 전 문안 검사용)"
+    },
+    "x": {
+      "label": "X",
+      "priority": 4,
+      "checked": "2026-09-07",
+      "fields": {
+        "body": {
+          "heading": "본문",
+          "required": true,
+          "max": 280,
+          "max_grade": "C",
+          "max_source": "3rd party 다수 합의 (developer.x.com 이 유료화돼 원문 확인 실패). 무료 280 / Premium 25,000 — 무료 기준으로 잡는다",
+          "weight": {
+            "cjk": 2,
+            "url": 23,
+            "emoji": 2
+          },
+          "weight_grade": "C",
+          "weight_note": "⚠️ X 는 **가중 글자수**를 센다. 한글·중일 문자와 이모지는 1자를 2로, URL 은 길이와 무관하게 23 으로 친다. 미디어(영상·이미지)는 0. 즉 280 예산은 **한글 약 140자**다 — 우리 플랫폼 중 가장 빡빡하다",
+          "visible": 140,
+          "visible_grade": "추론",
+          "visible_note": "타임라인에서 접히는 지점은 공식 미공개. 한글 기준 예산 절반을 안전선으로 뒀다"
+        },
+        "hashtags": {
+          "heading": "해시태그",
+          "required": true,
+          "min": 2,
+          "max": 3,
+          "note": "2026-09-16 사용자 지시로 **필수**가 됐다. 2~3개. 옛 지침은 「X 에서 해시태그는 성장 레버가 아니다」였지만 사용자가 넣기로 정했다. 가중 글자수에 그대로 들어간다 — 한글 태그 1자 = 2 예산"
+        },
+        "comment": {
+          "heading": "댓글",
+          "required": true,
+          "comment": true,
+          "required_since": "2026-09-29",
+          "required_since_note": "2026-09-29 사용자 지시로 추가 — 이 날짜 이전 「작성」 표기의 publish.md 는 소급하지 않는다(없으면 경고만)",
+          "recommend_max": 280,
+          "recommend_grade": "사용자 지시 2026-09-29 — 한두 줄의 개성 댓글",
+          "emoji_max": 2,
+          "emoji_note": "이모지는 선택 — 0~2개 권장. 넘으면 경고",
+          "no_hashtags": true,
+          "no_hashtags_note": "검색·분류는 본문이 맡는다 — 인스타 공식: 해시태그는 캡션에(댓글 아님)",
+          "max": 280,
+          "max_grade": "C",
+          "max_source": "답글도 게시물 — 무료 280(가중)",
+          "weight": {
+            "cjk": 2,
+            "url": 23,
+            "emoji": 2
+          },
+          "where": "첫 답글 — BGM 크레딧 자리(링크는 문안에 넣지 않는다)",
+          "links": true
+        }
+      },
+      "hashtags": {
+        "min": 2,
+        "max": 3,
+        "hard_max": null,
+        "range_grade": "사용자 지시 (2026-09-16)",
+        "range_note": "🔴 **2026-09-16 사용자 지시로 2~3개 필수.** 그 전 지침은 0~2개였다 — 머스크가 '그냥 단어를 써라'고 했고(A) 2025년 광고에서는 금지(B)라는 근거였지만, **사용자가 넣기로 정했다.** ⚠️ 가중 글자수에 그대로 들어간다 — 한글 태그는 1자당 2다. 280 예산에서 태그 3개면 본문이 20자쯤 줄어든다.",
+        "sources": [
+          "https://www.socialmediatoday.com/news/x-formerly-twitter-bans-hashtags-from-promoted-posts-ads/751782/",
+          "https://thehill.com/policy/technology/5370666-musk-banning-hashtags-on-x-ads/"
+        ]
+      },
+      "rules": [
+        "**한글은 2자로 센다.** 280 예산 = 한글 약 140자. 다른 플랫폼 캡션을 그대로 붙이면 넘친다 (C)",
+        "링크는 길이와 무관하게 **23자**를 먹는다. 영상·이미지는 0자 (C)",
+        "**링크를 본문에 넣지 마라 — 첫 답글에.** 본문 링크는 도달을 30~50% 깎고 무료 계정은 거의 0이다 (B/C)",
+        "핵심 사실 한 줄 + 조건 한 줄이면 예산이 찬다. 유의사항은 버리고 **기간·할인율·조건·이득**만 남긴다"
+      ],
+      "notes": [
+        "**국내 MAU 795만** (2026년 1~4월 월평균, 와이즈앱). 카카오톡 4,770만 · 인스타 2,808만 · 밴드 1,559만 · 틱톡 943만 · 네이버카페 904만 다음 **6위**. **스레드(543만)보다 크고 틱톡에 근접한다** (B)",
+        "20세 미만·20·30대에서 상위권 (B)",
+        "⚠️ 2026-06 국내 구글플레이 연령등급이 **청소년이용불가**로 바뀌었다 — 10대 접근성에 영향이 있을 수 있다 (C)",
+        "핸들 최대 15자",
+        "본문 280자는 무료 기준. X Premium 은 25,000자지만 **짧게 쓰면 어느 쪽이든 안전하다**"
+      ],
+      "links": {
+        "rule": "**링크는 본문이 아니라 첫 답글에 넣는다.**",
+        "grade": "B/C",
+        "note": "본문에 외부 링크가 있으면 도달이 30~50% 깎이고(오픈소스 알고리즘 분석), 무료 계정은 2026-03 이후 사실상 0에 가깝다는 실측 보고가 있다. X 는 2025-10 에 링크 페널티를 없앴다고 밝혔으나 데이터는 반대다 — 지금은 명시적 플래그가 아니라 리디렉션 지연·인앱 브라우저 마찰·참여 기반 강등으로 같은 결과를 낸다.",
+        "contrast": "⚠️ 스레드와 정반대다. 스레드는 다운랭크를 공식 부인했고 '링크는 첫 댓글에'가 통설이지만, **X 는 그 관행이 실제로 맞다.**",
+        "sources": [
+          "https://www.socialpilot.co/blog/twitter-algorithm",
+          "https://tomorrowspublisher.today/content-creation/x-softens-stance-on-external-links/"
+        ]
+      }
+    },
+    "carousel": {
+      "label": "카드 게시물",
+      "priority": 6,
+      "checked": "2026-10-08",
+      "only_with_cards": true,
+      "only_with_cards_note": "projects/<p>/cards/NN-*.html 이 있는 편만 이 절을 요구한다 — cards 스킬(2026-10-08 사용자 지시: 인스타 캐러셀·스레드·유튜브 이미지 게시물, 틱톡·X 제외). 근거 docs/channel/07-evidence.md K01",
+      "fields": {
+        "instagram": {
+          "heading": "캡션",
+          "required": true,
+          "max": 2200,
+          "max_grade": "C",
+          "max_source": "인스타 릴스 캡션과 같은 상한(3rd party 합의) — 캐러셀 캡션은 컨테이너 하나에 붙는다(Graph API)",
+          "visible": 125,
+          "visible_grade": "C",
+          "visible_note": "피드 접힘 약 125자(C) — 첫 줄에 넘길 이유를",
+          "hashtags": {
+            "min": 3,
+            "max": 5,
+            "hard_max": 5,
+            "note": "인스타 규칙 그대로(상한 5, A)"
+          },
+          "crosspost": true
+        },
+        "ig_comment": {
+          "heading": "댓글 — 인스타",
+          "required": true,
+          "comment": true,
+          "recommend_max": 160,
+          "recommend_grade": "사용자 지시 2026-09-29 — 한두 줄의 개성 댓글",
+          "emoji_max": 2,
+          "emoji_note": "이모지는 선택 — 0~2개 권장. 넘으면 경고",
+          "no_hashtags": true,
+          "no_hashtags_note": "검색·분류는 본문이 맡는다 — 인스타 공식: 해시태그는 캡션에(댓글 아님)",
+          "max": 2200,
+          "max_grade": "C",
+          "max_source": "3rd party 다수 합의 — 공식 수치 미확인",
+          "where": "카드 게시물의 첫 댓글 → 고정",
+          "links": false
+        },
+        "threads": {
+          "heading": "본문",
+          "required": true,
+          "max": 500,
+          "max_grade": "A",
+          "max_source": "https://developers.facebook.com/docs/threads/posts — 500자",
+          "hashtags": {
+            "min": 1,
+            "max": 1,
+            "hard_max": 1,
+            "note": "토픽 태그 1개(A)"
+          },
+          "crossposted_since": "2026-10-20",
+          "crossposted_note": "인스타 캐러셀을 스레드에 공유한다 — 이 날짜 이후 「작성」은 쓰지 않는다"
+        },
+        "threads_comment": {
+          "heading": "댓글 — 스레드",
+          "required": true,
+          "comment": true,
+          "recommend_max": 300,
+          "recommend_grade": "사용자 지시 2026-09-29 — 한두 줄의 개성 댓글",
+          "emoji_max": 2,
+          "emoji_note": "이모지는 선택 — 0~2개 권장. 넘으면 경고",
+          "no_hashtags": true,
+          "no_hashtags_note": "검색·분류는 본문이 맡는다 — 인스타 공식: 해시태그는 캡션에(댓글 아님)",
+          "max": 500,
+          "max_grade": "A",
+          "max_source": "답글도 게시물 — https://developers.facebook.com/docs/threads/posts 500자",
+          "where": "카드 게시물에 자기 답글",
+          "links": true,
+          "crossposted_since": "2026-10-20",
+          "crossposted_note": "인스타 캐러셀을 스레드에 공유한다 — 이 날짜 이후 「작성」은 쓰지 않는다"
+        },
+        "youtube": {
+          "heading": "게시물",
+          "required": true,
+          "max_note": "유튜브 게시물 본문 상한은 공식 도움말에 없다 — 짧게",
+          "hashtags": {
+            "min": 0,
+            "max": 3,
+            "note": "선택 — 게시물 해시태그 상한은 공식 미확인"
+          }
+        },
+        "alt": {
+          "heading": "대체 텍스트",
+          "required": true,
+          "max": 1000,
+          "max_grade": "A",
+          "max_source": "Instagram Graph API alt_text — 「up to 1000 character, for an image」(2026-10-08 원문 확인). 카드마다 한 블록"
+        }
+      },
+      "rules": [
+        "카드 이미지는 1080×1350(4:5) JPEG — 인스타 앱(1.91:1~3:4)·API(4:5~1.91:1)·스레드 모두 그대로 받는다(K01)",
+        "인스타·스레드는 20장까지, 유튜브 이미지 게시물은 10장까지 — 11장 이상이면 유튜브에는 앞 10장",
+        "캡션 첫 줄은 첫 장의 약속을 다른 말로 + 핵심 키워드 — 릴스 캡션 첫 줄과 다르게(같은 계정)",
+        "저장·공유를 요청하지 않는다(Meta 참여 유도 강등 — review §6) — 마지막 장과 캡션이 저장할 이유를 준다",
+        "댓글은 영상 문안의 댓글과도 다른 한마디(review §7) — 출처·URL·확인일 금지(공통)"
+      ]
+    },
+    "dm": {
+      "label": "인스타 자동 DM",
+      "priority": 7,
+      "checked": "2026-10-19",
+      "only_with_ig_cta": true,
+      "only_with_ig_cta_note": "cuts.json 에 ig_cta 가 있는 편(인스타 CTA 판 — 자막 아래 스티커)만 이 절을 요구한다 — Awesomble LINK 관리 앱(link.awesomble.com/app 「자동 DM」)의 칸에 그대로 붙여 넣는 글. video SKILL 「인스타 CTA 판」 · review 「인스타 CTA 판 문안」",
+      "required_since": "2026-10-20",
+      "required_since_note": "2026-10-19 사용자 지시로 추가 — 이전 「작성」 표기 문안은 소급하지 않는다(없으면 경고만, 00117 은 README ⑥에 같은 글)",
+      "source": "ABMEN dm/web/src/pages/RuleEditor.tsx (2026-10-19) — 이름 80자 · 버튼 글자 20자 · 링크 버튼이 있으면 내용 640자 · 링크 버튼 3개까지(이름 20자) · 공개 답글은 3줄 이상이면 댓글마다 무작위",
+      "fields": {
+        "name": {
+          "heading": "이름",
+          "required": true,
+          "max": 80,
+          "max_grade": "A",
+          "max_source": "LINK 관리 앱 입력 상한"
+        },
+        "keyword": {
+          "heading": "키워드",
+          "required": true,
+          "note": "영상 CTA 컷의 키워드 + 흔한 변형을 쉼표로 — 앱은 단어 단위·대소문자 무관으로 찾는다"
+        },
+        "opener": {
+          "heading": "첫 DM",
+          "required": true,
+          "recommend_max": 300,
+          "recommend_grade": "편집 판단 — 버튼을 누르게 하는 두 문장"
+        },
+        "button": {
+          "heading": "버튼 글자",
+          "required": true,
+          "max": 20,
+          "max_grade": "A",
+          "max_source": "인스타 빠른 답장 제목 — LINK 앱 maxLength 20"
+        },
+        "content": {
+          "heading": "내용",
+          "required": true,
+          "max": 640,
+          "max_grade": "A",
+          "max_source": "링크 버튼이 붙는 메시지 본문 — LINK 앱이 640자로 센다"
+        },
+        "links": {
+          "heading": "링크 버튼",
+          "required": true,
+          "lines_max": 3,
+          "line_max": 20,
+          "note": "한 줄에 버튼 이름 하나 — 주소는 사용자가 앱에서 넣는다(문안에 URL 금지)"
+        },
+        "replies": {
+          "heading": "공개 답글",
+          "required": true,
+          "lines_min": 3,
+          "note": "한 줄에 하나 — 3줄 이상이면 댓글마다 무작위(같은 문구 반복은 인스타가 막을 수 있다)"
+        }
+      }
+    }
+  },
+  "banned_phrases": [
+    {
+      "_lang": "en",
+      "pattern": "\\b(the (best|cheapest|biggest|worst)|world'?s (first|best|only)|number one|no\\.? ?1)\\b",
+      "flags": "i",
+      "label": "근거 없는 단정·최상급 (영어)",
+      "note": "객관적 실증이 없으면 거짓·과장이다. 확인된 숫자로 바꾸거나 빼라 — 문안에 출처를 붙여 해결하지 않는다"
+    },
+    {
+      "_lang": "en",
+      "pattern": "\\b(100 ?% ?(guaranteed|free|safe)|(?<!not )(?<!n't )(?<!never )guaranteed|always works|never fails|anyone can get|risk[- ]free|no conditions)\\b",
+      "flags": "i",
+      "label": "무조건·보장 표현 (영어) — 조건과 예외를 밝혀라"
+    },
+    {
+      "_lang": "en",
+      "pattern": "\\b((?<!no need to )(?<!don't )(?<!do not )hurry|act now|last chance|ends (today|tonight|soon)|limited time|final hours|before it'?s gone|don'?t miss out)\\b",
+      "flags": "i",
+      "label": "긴급성 표현 (영어) — README 확정 팩트의 실제 마감일과 대조하라 (없으면 허위 긴급성)"
+    },
+    {
+      "_lang": "en",
+      "pattern": "\\b(once[- ]in[- ]a[- ]lifetime|one time only|never again)\\b",
+      "flags": "i",
+      "label": "과장된 희소성 (영어)"
+    },
+    {
+      "_lang": "en",
+      "pattern": "\\bup to(?!\\s+you\\b)(?!\\s*[$₩€£]?\\s*\\d)",
+      "flags": "i",
+      "label": "'up to'를 숫자 없이 씀 (영어) — 조건을 밝혀라"
+    },
+    {
+      "_lang": "en",
+      "pattern": "\\b(we all|let'?s all)\\b",
+      "flags": "i",
+      "label": "1인칭 복수 (영어)",
+      "why": "β=−0.15 로 헤드라인 성과가 가장 낮다 (PLOS ONE 2023)"
+    },
+    {
+      "_lang": "en",
+      "pattern": "\\b(shocking|insane|crazy|mind[- ]?blowing|you won'?t believe|secret|only in korea)\\b",
+      "flags": "i",
+      "label": "과장 후킹 어휘 (영어) — docs/channel/04-format-voice.md §3 이 금지한 표현",
+      "note": "사실 확인 없이 관심만 끄는 장치다. 사실이 이미 흥미로우면 덧붙이지 않는다"
+    },
+    {
+      "pattern": "역대급|역대\\s*최대|무조건|100%\\s*보장|누구나\\s*가능|업계\\s*1위|국내\\s*최초|유일한",
+      "label": "근거 없는 단정·최상급",
+      "note": "객관적 실증이 없으면 거짓·과장이다. 확인된 숫자로 바꾸거나 빼라 — 문안에 출처를 붙여 해결하지 않는다"
+    },
+    {
+      "pattern": "최대(?!\\s*\\d)",
+      "label": "'최대'를 숫자 없이 씀 — 조건을 밝혀라"
+    },
+    {
+      "pattern": "지금\\s*아니면\\s*못|평생|단\\s*한\\s*번뿐",
+      "label": "과장된 희소성"
+    },
+    {
+      "pattern": "오늘\\s*마감|마감\\s*임박|서두르(?![가-힣\\s]{0,6}(없|마세|마십|말|않))|남은\\s*시간|얼마\\s*안\\s*남",
+      "label": "긴급성 표현 — README 확정 팩트의 실제 마감일과 대조하라 (허위 긴급성은 기만적 표시·광고)"
+    },
+    {
+      "pattern": "우리가 준비|우리 모두",
+      "label": "1인칭 복수",
+      "why": "β=−0.15 로 헤드라인 성과가 가장 낮다 (PLOS ONE 2023)"
+    },
+    {
+      "pattern": "큰일 납니다|위험합니다",
+      "label": "공포 소구",
+      "why": "공포 −0.5%/SD — 오히려 CTR 을 깎는다 (Nature Human Behaviour 2023)"
+    },
+    {
+      "pattern": "동의하면 댓글|저장 필수|태그하세요|공유해 ?주세요|\\b(comment (yes|below if|if you agree)|tag (a friend|someone|your friends?)|share this with (a friend|someone|everyone)|like and share|smash (that|the) like|save (this|it) (post|video|for)|send this to)\\b",
+      "flags": "i",
+      "label": "참여 유도 미끼 (한국어+영어)",
+      "why": "Meta engagement bait — 강등. 반복하면 계정 단위로 더 깎인다"
+    },
+    {
+      "pattern": "#(fyp|foryou|foryoupage|viral)\\b|#추천해요",
+      "flags": "i",
+      "label": "무효 해시태그",
+      "why": "틱톡 공식이 직접 효과 없다고 밝혔다. 주제 신호만 희석한다 — 대소문자와 무관하게 잡는다"
+    }
+  ],
+  "common_rules": [
+    "영상에 없는 사실을 카피에 쓰지 않는다 — 카피가 영상보다 크면 완주가 죽는다",
+    "혜택을 쓰면 기간·한도·대상을 같이 쓴다. 조건 없는 혜택 문구는 낚시다",
+    "남의 상표를 채널명 자리에 쓰거나 공식·제휴처럼 보이게 쓰지 않는다 (resources/logos/README.md)",
+    "플랫폼마다 독자와 진입 경로가 다르다 — 같은 캡션을 네 번 붙여넣지 않는다"
+  ],
+  "legal": {
+    "_jurisdiction": "🔵 ABMEN: 아래 조문·심결례는 **한국 기준**이고, 우리 문안의 게시 대상은 영어권이다. 해당 시장의 등가 규정은 이 저장소에서 확인하지 않았으므로 영어 문안에 한국 법조문을 인용하지 않는다. 원칙(허위 긴급성 금지 · 최상급과 '최대/up to'에 조건 병기 · 숫자의 기준일·출처는 README 확정 팩트에(문안에는 넣지 않는다) · 협찬 공개는 게시물 시작 부분)은 시장과 무관하게 지킨다.",
+    "note": "표시광고법상 '광고'는 사업자등이 자기 상품을 알리는 것이다. 제3자 정보 채널이 대가 없이 정책·혜택을 설명하는 건 원칙적으로 이 법의 광고가 아니다. **단 협찬·제휴 링크 등 경제적 이해관계가 생기는 순간 적용된다.** (법률자문이 아니라 조문 해석이다)",
+    "rules": [
+      "**긴급성은 실제 마감일이 확인될 때만.** 같은 조건으로 계속 가능한데 '오늘 마감'·'남은 시간'을 쓰면 허위 긴급성이다 — 2025-10-30 시행 「기만적인 표시·광고 심사지침」 개정이 최신 심결례까지 예시로 넣어 정면으로 겨냥했다",
+      "**'최대'는 조건과 한 세트로만.** '최대 15% 할인'을 조건 없이 쓰면 기만적 광고다. 공정위가 최근 3년 온라인 할인율 거짓·과장으로 직권조사 8건을 했다",
+      "**숫자의 기준일·출처는 README 확정 팩트에 남긴다**(실증책임). 🔴 업로드 문안(설명·캡션·본문·댓글)에는 출처명·출처 링크·확인일을 넣지 않는다 — 2026-10-02 사용자 지시, publish-check 가 실패로 막는다",
+      "대상·소득·지역·예산 소진 조건을 생략하지 않는다 — 조건 누락이 기만적 광고의 전형이다",
+      "협찬·제휴가 있으면 공개 문구를 **제목 또는 게시물 시작 부분**에 둔다. 본문 중간·댓글·'더 보기' 안은 공개로 인정되지 않는다",
+      "할인 전 가격을 비교하려면 **종전거래가격 = 최근 20일 정도의 실제 판매가 중 최저가**가 원칙이다 (대법원 2019두36001). 비교 기준을 명시하지 않은 '원래 O원' 은 쓰지 마라"
+    ],
+    "sources": [
+      "공정위 기만적 표시·광고 심사지침 개정(2025-10-30 시행) https://www.ftc.go.kr/www/selectBbsNttView.do?key=12&bordCd=3&nttSn=46562",
+      "공정위 온라인 할인율 거짓·과장 직권조사 8건(2025-10-21) https://www.korea.kr/news/policyNewsView.do?newsId=148952606",
+      "추천·보증 등에 관한 표시·광고 심사지침 https://www.law.go.kr/admRulInfoP.do?admRulSeq=2100000190311",
+      "종전거래가격 20일 최저가 대법원 2019두36001 https://casenote.kr/대법원/2019두36001"
+    ],
+    "platform_penalties": {
+      "meta_engagement_bait": "「동의하면 댓글」·「저장 필수」·「태그하세요」·「공유해 주세요」는 **강등**된다. 반복하면 계정 단위로 더 깎인다 (Meta 공식)",
+      "meta_clickbait": "① 핵심 정보 의도적 은폐 ② 과장으로 기대 왜곡 — **둘 다** 강등. 「방법을 잠근다」와 「핵심 은폐」의 경계가 여기다",
+      "youtube_misleading": "🔴 제목-내용 불일치는 강등이 아니라 **스팸·기만행위 정책 위반**(삭제·경고 대상)이다. Meta 보다 세다",
+      "tiktok_fyp": "#FYP·#추천·#viral 은 **무효**다 (틱톡 공식이 직접 부정). 주제 신호만 희석한다",
+      "instagram_originality": "2026-04-30 원본성 정책 — 재게시 위주 계정은 추천에서 제외. **워터마크 추가·배속 변경·크레딧 붙인 스크린샷은 원본으로 인정 안 된다**"
+    }
+  },
+  "ko_text": {
+    "checked": "2026-09-11",
+    "grade": "실측(Chrome canvas measureText 15px)",
+    "width_ratio": 1.65,
+    "note": "한글 1자 = 영문 1.60~1.70자 폭. 피드 잘림은 글자수가 아니라 **줄 수**(line-clamp) 기준이라, 영어권 가이드 자수를 그대로 쓰면 한글은 2배 가까이 넘친다.",
+    "convert": "한글 안전 자수 ≈ 영어 가이드 자수 ÷ 1.7",
+    "one_line_390px": {
+      "shorts_title": 23,
+      "reels_caption": 22,
+      "tiktok_caption": 22
+    },
+    "sov_warning": "한국어는 서술어가 문장 끝이라 **잘리면 결론이 날아간다**(영어 SVO 엔 없는 문제). 첫 줄은 **명사구 종결**이나 **결론 도치**로 쓴다."
+  },
+  "first_line": {
+    "checked": "2026-09-25",
+    "principle": "숫자·대상어는 첫 줄에 **밝히고**, 방법(How)만 잠근다.",
+    "why": "호기심 갭은 역U자다 — 구체성<2.58 이면 구체화할수록 CTR +5.5%, >3.06 이면 −9.9% (Sci Rep 2025, 8,977 A/B). 너무 모호해도 너무 다 밝혀도 손해다. 그리고 **핵심 정보 은폐는 Meta 클릭베이트 정의에 직접 걸린다**.",
+    "formulas": [
+      {
+        "name": "기본형",
+        "pattern": "<number> <subject>: <what changes / what you'd miss>",
+        "note": "방법은 잠근다"
+      },
+      {
+        "name": "마감형",
+        "pattern": "<subject> ends <date>: <what you'd lose>",
+        "note": "🔴 확정 팩트에 마감일이 있을 때만"
+      },
+      {
+        "name": "3인칭 단수",
+        "pattern": "<a specific person or case> <does the surprising thing>",
+        "note": "β=+0.24 로 가장 높다 (PLOS ONE 2023)"
+      },
+      {
+        "name": "조건 역전",
+        "pattern": "<what everyone assumes>, but <one condition> flips it",
+        "note": "손실 프레이밍 + 구체성 중간"
+      },
+      {
+        "name": "검색 질문 + 즉답",
+        "pattern": "<the question people search>? <short surprising answer>",
+        "note": "keyword.mjs 질문형 제안을 그대로 쓰고 **같은 줄에서 답한다** — 00017 'Do you tip in Korea? No, but Grandma tips the kid'. 답 없는 질문 헤드라인과 다르다"
+      }
+    ],
+    "evidence": {
+      "negativity": "부정어 1개 +2.3% · 긍정어 1개 −1.0% (Nature Human Behaviour 2023, RCT N=22,743)",
+      "which_negative": "🔴 통하는 부정은 **손실·아쉬움**이다. 슬픔 +0.7%/SD · 공포 **−0.5%** · 분노 **0.0%** — 「공포·분노를 자극하라」는 근거가 없다",
+      "person": "1인칭 복수(우리) **β=−0.15** · 3인칭 단수 +0.24 · 1인칭 단수 +0.22 · **2인칭(당신) 유의하지 않음**",
+      "caveat": "근거는 전부 Upworthy 2013~2015 **영어** 헤드라인이다. 저자들이 「효과가 시간이 갈수록 감쇠했다」고 명시했고 모델 예측 정확도는 54.42% — **문형은 확률을 밀 뿐 보장이 아니다**"
+    },
+    "question_headline": "❌ 답 없는 질문을 기본값으로 쓰지 마라. 근거는 2013년 데이터고, 대규모 데이터에서 2인칭이 유의하지 않았으며, 참여 유도로 읽히면 Meta 가 강등한다. 열린 질문은 **인스타 캡션 마지막 줄**에 쓴다(2026-10-20부터 스레드 본문은 따로 없다). 검색 질문을 같은 줄에서 바로 답하는 형식은 위 「검색 질문 + 즉답」이다",
+    "search_phrase": "검색어는 사람들이 실제로 치는 **원형 구**로 넣는다 — keyword.mjs 제안의 표현을 그대로 (❌ 'Korean gratuity customs' ✅ 'tipping in korea'). 멋을 부려 바꾸면 검색 매칭이 약해진다"
+  },
+  "academy_ad": {
+    "_note": "학원 광고 금지·주의 표현(YBMECC 2026-10-20). 대본(cuts.json)·화면 소스(hyperframes·cards)·업로드 문안(publish.md) 모두에 적용한다 — lib/academy.mjs. hard=근거가 있어도 쓰지 않는 표현, soft=README 확정 팩트에 근거(조사 주체·기간·기준)가 있을 때만. 근거 docs/channel/02-platform-rules.md §1",
+    "hard": [
+      {
+        "pattern": "선행(?!\\s*(?:학습\\s*)?(?:을\\s*)?(?:하지|안\\s*하|없|않|금지))",
+        "label": "선행학습 유발 광고 — 공교육정상화법 제8조제4항(학원)",
+        "note": "학교 교육과정보다 앞선 학습을 내세우지 않는다. 「수준별」「깊이 있게」처럼 지금 단계의 활동으로 말한다"
+      },
+      {
+        "pattern": "(?:초등|중등|중학|고등|고교|\\d\\s*학년)\\s*(?:과정|교과|수학|영어|문법|내용)?\\s*(?:을|를)?\\s*(?:미리|먼저|앞당겨|끝내|끝낸|마치|마쳐|마친|떼|뗀|마스터)",
+        "label": "학년 앞당김 표현 — 선행학습 유발 광고",
+        "note": "교육부 예시: 「초등 때 중등 과정을 마쳐야」"
+      },
+      {
+        "pattern": "(?:\\d+\\s*년|\\d+\\s*학년)\\s*(?:을\\s*)?(?:앞서|앞선|앞당|뛰어넘)",
+        "label": "학년 앞당김 표현 — 선행학습 유발 광고"
+      },
+      {
+        "pattern": "(?:영어|원어민|국제|사립|영)\\s*유치원|유치원\\s*(?:과정|반|부)(?![가-힣])|(?<![가-힣])영유(?![가-힣])",
+        "label": "유치원(유사) 명칭 — 유아교육법 제28조의2(학원은 유치원 명칭 금지)",
+        "note": "「IVY Kids 5~7세 과정」으로 쓴다. 「유치원 하원 후」처럼 다른 기관을 가리키는 말은 해당하지 않는다"
+      },
+      {
+        "pattern": "(?:합격|성적|점수|등급|실력|결과|향상)\\s*(?:을|를|이|가)?\\s*(?:100\\s*%\\s*)?보장|무조건\\s*(?:합격|오르|올라|향상|늘)|100\\s*%\\s*(?:합격|향상|만족|효과)",
+        "label": "결과 보장 표현 — 표시광고법 거짓·과장"
+      }
+    ],
+    "soft": [
+      {
+        "pattern": "1\\s*위|최고|최초|최다|최상|유일|압도적|넘버\\s*원|No\\.?\\s*1",
+        "label": "최상급·순위 — 근거(조사 주체·기간·기준)를 README 확정 팩트에 두고 같은 화면·본문에 같은 크기로 밝힐 때만",
+        "note": "공정위 기만적 표시·광고 심사지침 Ⅴ.2 — 근거를 작게 숨기면 기만"
+      },
+      {
+        "pattern": "합격(?:생|률|자)?|배출|명문대|특목고|국제학교\\s*입학|수상(?!한|하게|쩍)",
+        "label": "실적 표현 — 이 지점의 실제 수치·기간만, 본사·다른 지점 실적을 지점 실적처럼 쓰지 않는다"
+      },
+      {
+        "pattern": "모국어처럼|결과로\\s*증명|눈에\\s*보이는\\s*결과",
+        "label": "본사 브랜드 주장 — 실증 근거 없이 지점 대사로 옮기지 않는다"
+      },
+      {
+        "pattern": "후기|학부모\\s*(?:님)?\\s*(?:말씀|추천|인터뷰)|추천합니다|강력\\s*추천",
+        "label": "후기·추천 — 실제 후기 원문과 동의 기록이 있을 때만, 가공·재구성 금지(추천·보증 심사지침)"
+      },
+      {
+        "pattern": "영어\\s*유치부",
+        "label": "「영어유치부」 — 본사 과정명이지만 유치원 유사 명칭 해석 미확인. 원장·교육지원청 확인 전에는 「IVY Kids(5~7세)」로"
+      },
+      {
+        "pattern": "마감\\s*임박|선착순|잔여\\s*\\d|\\d+\\s*명\\s*(?:만|한정)|오늘\\s*까지",
+        "label": "모집 긴급성 — 실제 정원·마감일을 README 확정 팩트로 확인한 경우만"
+      }
+    ]
+  }
+}

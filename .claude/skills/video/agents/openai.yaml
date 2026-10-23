@@ -1,0 +1,6 @@
+interface:
+  display_name: "ABMEN Video"
+  short_description: "영어권 숏폼의 기획·그림·모션·자막·BGM·검수와 MP4 제작"
+  default_prompt: "$video 스킬로 이 ABMEN 프로젝트의 주제·진행 상태와 README의 승인·중단 범위를 확인하고, 그 범위 안에서 100만 조회수를 목표로 사실에 근거한 기획·그림·모션·검수를 이어서 진행해줘. 대본은 영어로 직접 쓰고 docs/channel/ 을 정본으로 삼는다."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,53 @@
+# YBMECC(ABMEN 이식) — 커밋하는 것은 영상을 다시 만드는 데 필요한 소스와, 잃으면 돈·한도가 드는 자산이다.
+# 🔴 주석은 반드시 줄 전체로 쓴다. Git 은 줄 중간의 # 을 주석으로 읽지 않는다 —
+#    2026-09-27 인라인 주석 때문에 아래 규칙 9개가 무효였고, 커밋 대상이 13GB 였다(ABM 도 같은 결함).
+#    고친 뒤 확인: git check-ignore -v projects/<p>/output/<파일>
+
+# ── 비밀 ──
+pipeline/.env.local
+.claude/settings.local.json
+
+# ── 원생 사진 — 아동 개인정보라 git 에 올리지 않는다 (YBMECC 2026-10-20) ──
+# 동의 철회 때 git 이력에서는 지울 수 없다. 원본은 학원이 갖고, 사본은 photo-intake 로 다시 만든다(docs/channel/02-platform-rules.md §1-4)
+projects/*/photos-in/
+projects/*/assets/photos/
+projects/*/hyperframes/assets/photos/
+projects/*/cards/assets/photos/
+
+# ── 재생성 산출물 — 전부 스크립트로 다시 만든다 ──
+# 영상 폴더 안의 산출물 (2026-09-16: output/<p> → projects/<p>/output). MP4·SRT·시트·렌더 횟수·수정 장부
+projects/*/output/
+# 루트 output 은 프로젝트에 안 속하는 것만 (output/crawl/) — research 는 docs/channel 이 근거로 링크해서 올린다
+/output/*
+!/output/research/
+# render.sh 가 resources/·output/ 에서 스테이징하고, 렌더할 프로젝트를 생성한다 (Remotion 레거시)
+pipeline/motion/public/
+pipeline/motion/src/project.ts
+
+# ── HyperFrames 캐시 ──
+# 스튜디오 미리보기·파형 캐시
+projects/*/hyperframes/.thumbnails/
+projects/*/hyperframes/.waveform-cache/
+# 렌더러의 영상 트랜스코드 캐시(mp4) — 렌더 때 다시 만든다
+projects/*/hyperframes/.transcode-cache/
+# 프레임별 오디오 슬라이스 — hf-audio.mjs 가 다시 만든다
+projects/*/hyperframes/.media/
+# 눈검사용 스냅샷·렌더 중간 산출물
+projects/*/hyperframes/snapshots/
+projects/*/hyperframes/renders/
+# 롱폼 미리보기용 본편 렌더 사본 — hf-bundle.mjs preview --from <mp4> 가 다시 복사한다 (00026 body.mp4 106MB, GitHub 한도 100MB 초과)
+projects/*/hyperframes/assets/bundle/
+
+# ── 의존성·언어 캐시 ──
+node_modules/
+__pycache__/
+*.pyc
+
+# ── OS·IDE ──
+.DS_Store
+.idea/
+*.iml
+
+# ⚠️ projects/*/assets/ · projects/*/voice/ · resources/ 는 무시하지 않는다.
+#    i2v 크레딧·타입캐스트 한도를 써서 만든 것과 사용자가 넣은 리소스라 잃으면 그만큼 다시 든다.
+#    완성 MP4 는 output/ 에 있어 커밋되지 않는다 — 보관이 필요하면 클라우드 폴더에 따로 둔다.

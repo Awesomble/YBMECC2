@@ -1,0 +1,96 @@
+{
+  "id": "ybmecc-daechi",
+  "name": "YBM ECC 대치점",
+  "handle": "",
+  "language": "ko",
+  "_note": "2026-10-20 ABMEN에서 이식(학원 홍보 숏폼). 색은 공식 마크(ybmecc-mark.svg)의 버건디 #A51D4D·오렌지 #F69321에서 가져오고 무대는 밝은 Ivory다 — 정본 docs/channel/05-brand-pipeline.md §2. paper=무대 배경(Ivory), ink=기본 글자(Plum Ink). Ivory 위 대비: ink 16.2:1 · accent(버건디) 6.9:1 · muted 4.7:1 — 글자 가능. warm(오렌지) 2.2:1·lime(강조 Gold) 1.5:1은 Ivory 위에서 면·밑줄로만 쓴다. 버건디 위: 흰 글자 7.3:1 · Gold 4.5:1(큰 글자). Ink 위: Gold 10.7:1 · 오렌지 7.4:1. 사진 위 자막은 흰 글자 + ink 8px 외곽선, 강조 단어 Gold. handle은 계정 확정 전이라 비워 둔다(채널01 §6).",
+  "colors": {
+    "paper": "#FFF7EE",
+    "ink": "#2B1420",
+    "accent": "#A51D4D",
+    "warm": "#F69321",
+    "lime": "#FFC23D",
+    "white": "#FFFFFF",
+    "muted": "#7D6A72",
+    "line": "#EADFD6"
+  },
+  "font": {
+    "family": "Pretendard",
+    "file": "PretendardVariable.woff2",
+    "license": "LICENSE-Pretendard.txt",
+    "weightRange": "45 920",
+    "_note": "2026-10-20 한국어 본문·자막·숫자·라벨 서체(orioncactus/pretendard v1.3.9 가변 woff2, SIL OFL 1.1 — 상업 이용·영상 표기 의무 없음). 영문도 Pretendard 안의 Inter 계열 글리프로 그려진다."
+  },
+  "posterFont": {
+    "family": "Hahmlet",
+    "file": "Hahmlet-Variable.ttf",
+    "license": "LICENSE-Hahmlet.txt",
+    "weightRange": "100 900",
+    "titleWeight": 900,
+    "_note": "0초 포스터 주제 제목에만 쓰는 디스플레이 서체(Hypertype Hahmlet, 한글 포함, SIL OFL 1.1). ABMEN 2026-10-06 사용자 지시를 그대로 이어받았다 — 학원 편에서 바꾸려면 채널05 §2를 먼저 고친다. 본문·숫자·자막·라벨은 Pretendard."
+  },
+  "lockup": {
+    "text": "YBM ECC 대치점",
+    "left": 80,
+    "top": 238,
+    "width": 304,
+    "height": 46,
+    "paddingX": 18,
+    "radius": 8,
+    "fontSize": 20,
+    "fontWeight": 800,
+    "letterSpacing": ".12em",
+    "background": "#FFFFFF",
+    "color": "#A51D4D",
+    "_note": "ABMEN 옛 한 줄 텍스트 락업 판정 호환용(2026-09-27 이전 편). 이 저장소에는 그런 편이 없다 — 새 편은 아래 logo만 쓴다."
+  },
+  "logo": {
+    "file": "resources/brand/ybmecc-daechi-tab.png",
+    "asset": "assets/brand/ybmecc-daechi-tab.png",
+    "alt": "YBM ECC 대치점",
+    "left": 80,
+    "top": 228,
+    "height": 112,
+    "filter": "drop-shadow(0 3px 10px rgba(43,20,32,.28))",
+    "_note": "2026-10-20 C 탭형(기본): 흰 캡슐(공식 마크 무변형) + 버건디 캡슐(흰 「대치점」), 1396×440 → 높이 112에서 폭 약 355(끝 x435). 자리·높이는 ABMEN 규격 그대로 — 상단 플랫폼 가림 220px + 8px, 아래 끝 y340은 무대 y360 앞 20px. 흰 판이 있어 사진·밝은 무대 모두에서 읽히고 그림자는 사진 위 분리용. 다른 판: ybmecc-daechi-plate.png(A 가로 흰 판) · -clear.png(A′ 판 없음 — 밝은 카드·엔딩) · -stack.png(B 세로 스택). 바꿀 때는 새 파일명으로 들이고 file·asset만 바꾼다(게이트 해시 대조)."
+  },
+  "type": {
+    "headlineWeight": 750,
+    "bodyWeight": 550,
+    "captionWeight": 600,
+    "numberWeight": 800
+  },
+  "platforms": [
+    "instagram",
+    "youtube"
+  ],
+  "_platforms_note": "2026-10-20 학원 홍보 기본 게시처: 인스타 릴스(페이스북·스레드 교차 게시)·유튜브 쇼츠. 틱톡·X는 학부모 도달이 낮고 법정 표시(교습비 등)를 넣을 본문이 모자라 기본에서 뺐다 — 목록 밖 플랫폼 절은 publish.md 에 있으면 검사하고 없으면 요구하지 않는다(publish-check·stage-gate 6).",
+  "academy": {
+    "_note": "학원 광고 법정 표시·지점 사실의 정본(2026-10-20). 값은 ybmecc.com/daechi 하단 표기에서 확인했고, null·\"확인 필요\"는 원장 확인 전이다 — academy-check·publish-check 가 채워질 때까지 업로드 단계를 막는다. 근거 docs/channel/02-platform-rules.md §1·07-evidence.md",
+    "brand": "YBM ECC",
+    "branchLabel": "대치점",
+    "_branchLabel_note": "화면 로고 표기는 사용자 지시(2026-10-20 「대치점」). ybmecc.com 공식 표기는 지점 목록 「대치」·지점 홈 「ECC대치」 — 문안에서 지점을 부를 때는 「YBM ECC 대치」도 쓸 수 있다",
+    "legalName": "이씨씨대치어학학원",
+    "registration": "제3984호",
+    "registrationPattern": "제\\s*3984\\s*호",
+    "address": "서울특별시 강남구 역삼로 442",
+    "phone": "02-553-0509",
+    "programs": [
+      "IVY Kids",
+      "IVY Friends",
+      "IVY Master",
+      "iLearning"
+    ],
+  "courses": "외국어(영어)",
+    "_courses_note": "교습과정(등록증명서 기준). 2026-10-20 사용자 확인 「외국어(영어)」. 바뀌면 원장 확인 후 문자열로 고친다(학원법 시행령 제16조의3 제3호)",
+    "tuition": {
+      "반당정원": null,
+      "월교습시간": null,
+      "월교습비": null,
+      "교습기간": null,
+      "기타경비": null
+    },
+    "_tuition_note": "서울특별시교육청 학원 조례 시행규칙 제8조제2항 — 광고에 반당정원·월교습시간·월교습비·교습기간·기타경비(모의고사비·재료비·피복비·급식비·기숙사비·차량비) 내역. 과정이 여럿이면 과정별 값을 \"IVY Kids: …\" 처럼 한 문자열에 적는다",
+    "checked": "2026-10-20 https://www.ybmecc.com/daechi 하단(상호·등록번호·주소·대표번호) · 프로그램명은 같은 페이지 본문"
+  }
+}

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="{{LANG}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width={{WIDTH}}, height={{HEIGHT}}">
+  <title>{{TITLE}}</title>
+  <script src="assets/vendor/gsap.min.js"></script>
+  <style>
+    {{BRAND_CSS}}
+    * {box-sizing:border-box}
+    html,body {margin:0;width:{{WIDTH}}px;height:{{HEIGHT}}px;overflow:hidden;background:var(--abmen-paper)}
+    #root {position:relative;width:{{WIDTH}}px;height:{{HEIGHT}}px;overflow:hidden;font-family:{{FONT_FAMILY}},sans-serif;color:var(--abmen-ink);font-weight:{{BODY_WEIGHT}};font-optical-sizing:auto;word-break:keep-all;overflow-wrap:break-word}
+    #root-bg {position:absolute;inset:0;background:var(--abmen-paper)}
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="main" data-start="0" data-duration="{{DURATION}}" data-width="{{WIDTH}}" data-height="{{HEIGHT}}">
+    <div id="root-bg"></div>
+    <!-- ABM:tracks:start -->
+{{TRACKS}}
+    <!-- ABM:tracks:end -->
+    {{LOCKUP_MARKUP}}
+  </div>
+  <script>
+    window.__timelines=window.__timelines||{};
+    window.__timelines.main=gsap.timeline({paused:true});
+  </script>
+</body>
+</html>

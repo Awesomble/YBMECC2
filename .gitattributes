@@ -1,0 +1,4 @@
+# 모든 파일을 바이트 그대로 저장한다 — 줄바꿈 변환 금지.
+# 에셋 승인 지문(cuts.json sourceHash)·렌더 봉인·TTS 지문이 파일 해시를 본다.
+# 전역 core.autocrlf=input 이 CRLF 파일(공식 CI SVG 등)을 LF 로 바꾸면 다른 기계에서 지문이 어긋난다 (2026-09-27).
+* -text
